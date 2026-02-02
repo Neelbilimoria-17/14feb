@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Will You Be My Valentine 💘</title>
+
+<style>
+    body {
+        height: 100vh;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #ff5f6d, #ffc371);
+        font-family: Arial, sans-serif;
+    }
+
+    .box {
+        background: white;
+        padding: 40px;
+        border-radius: 20px;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        width: 350px;
+        height: 280px;
+        position: relative;
+    }
+
+    h1 {
+        margin-bottom: 30px;
+    }
+
+    .buttons {
+        position: relative;
+        height: 80px;
+    }
+
+    button {
+        padding: 12px 28px;
+        font-size: 18px;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        position: absolute;
+    }
+
+    #yes {
+        background-color: #ff4d6d;
+        color: white;
+        left: 30px;
+    }
+
+    #no {
+        background-color: #adb5bd;
+        left: 180px;
+        top: 0;
+    }
+
+    #gif {
+        display: none;
+        margin-top: 20px;
+    }
+
+    #gif img {
+        width: 200px;
+        border-radius: 15px;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="box">
+    <h1>Will you be my Valentine? 💖</h1>
+
+    <div class="buttons">
+        <button id="yes">Yes ❤️</button>
+        <button id="no">No 😅</button>
+    </div>
+
+    <div id="gif">
+        <img src="oh-wow-you-dont-say.gif" alt="Wow reaction">
+    </div>
+</div>
+
+<script>
+    const noBtn = document.getElementById("no");
+    const yesBtn = document.getElementById("yes");
+    const gif = document.getElementById("gif");
+
+    noBtn.addEventListener("mouseenter", () => {
+        const boxWidth = 260;
+        const boxHeight = 60;
+
+        const randomX = Math.random() * boxWidth;
+        const randomY = Math.random() * boxHeight;
+
+        noBtn.style.left = randomX + "px";
+        noBtn.style.top = randomY + "px";
+    });
+
+    yesBtn.addEventListener("click", () => {
+        gif.style.display = "block";
+    });
+</script>
+
+</body>
+</html>
