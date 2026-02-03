@@ -25,20 +25,15 @@ body {
 }
 
 h1 {
-  margin-bottom: 10px;
-}
-
-.heart-icon {
-  font-size: 28px;
-  margin-bottom: 25px;
+  margin-bottom: 15px;
 }
 
 .buttons {
   position: relative;
-  height: 120px;
+  height: 140px;
 }
 
-/* BUTTON BASE */
+/* COMMON BUTTON */
 button {
   padding: 12px 28px;
   font-size: 18px;
@@ -47,23 +42,25 @@ button {
   cursor: pointer;
   position: absolute;
   min-width: 90px;
-  transition: left 0.12s linear, top 0.12s linear;
+  transition: left 0.15s ease, top 0.15s ease;
 }
 
-/* YES */
+/* YES (LOCKED POSITION) */
 #yes {
   background: #ff4d6d;
   color: white;
   left: 40px;
-  top: 40px;
+  top: 50px;
+  z-index: 2;
 }
 
 /* NO */
 #no {
   background: #eee;
   color: black;
-  left: 200px;
-  top: 40px;
+  left: 220px;
+  top: 50px;
+  z-index: 1;
 }
 
 #gif {
@@ -90,9 +87,8 @@ button {
 
 <div class="card">
   <h1>Will you be my Valentine? ❤️</h1>
-  <div class="heart-icon">💖</div>
 
-  <div class="buttons" id="buttons">
+  <div class="buttons">
     <button id="yes">Yes</button>
     <button id="no">No</button>
   </div>
@@ -103,42 +99,28 @@ button {
 <script>
 const noBtn = document.getElementById("no");
 const yesBtn = document.getElementById("yes");
-const buttons = document.getElementById("buttons");
 const gif = document.getElementById("gif");
 
+/* SAFE POSITIONS — NONE TOUCH YES */
+const safePositions = [
+  { x: 220, y: 10 },
+  { x: 220, y: 90 },
+  { x: 260, y: 50 },
+  { x: 180, y: 10 },
+  { x: 180, y: 90 }
+];
+
+let index = 0;
+
 noBtn.addEventListener("click", () => {
-  const yesRect = yesBtn.getBoundingClientRect();
-  const containerRect = buttons.getBoundingClientRect();
-
-  let x, y, tries = 0;
-
-  do {
-    x = Math.random() * (containerRect.width - noBtn.offsetWidth);
-    y = Math.random() * (containerRect.height - noBtn.offsetHeight);
-
-    const noRect = {
-      left: containerRect.left + x,
-      right: containerRect.left + x + noBtn.offsetWidth,
-      top: containerRect.top + y,
-      bottom: containerRect.top + y + noBtn.offsetHeight
-    };
-
-    var overlap =
-      !(noRect.right < yesRect.left ||
-        noRect.left > yesRect.right ||
-        noRect.bottom < yesRect.top ||
-        noRect.top > yesRect.bottom);
-
-    tries++;
-  } while (overlap && tries < 50);
-
-  noBtn.style.left = x + "px";
-  noBtn.style.top = y + "px";
+  index = (index + 1) % safePositions.length;
+  noBtn.style.left = safePositions[index].x + "px";
+  noBtn.style.top = safePositions[index].y + "px";
 });
 
 /* YES */
 yesBtn.addEventListener("click", () => {
-  buttons.style.display = "none";
+  document.querySelector(".buttons").style.display = "none";
   gif.style.display = "block";
   hearts();
 });
