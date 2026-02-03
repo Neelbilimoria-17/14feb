@@ -20,7 +20,7 @@ body {
   padding: 40px;
   border-radius: 20px;
   text-align: center;
-  width: 340px;
+  width: 360px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
 
@@ -35,10 +35,10 @@ h1 {
 
 .buttons {
   position: relative;
-  height: 100px;
+  height: 120px;
 }
 
-/* COMMON BUTTON STYLE */
+/* BUTTON BASE */
 button {
   padding: 12px 28px;
   font-size: 18px;
@@ -46,8 +46,8 @@ button {
   border: none;
   cursor: pointer;
   position: absolute;
-  transition: left 0.12s linear, top 0.12s linear;
   min-width: 90px;
+  transition: left 0.12s linear, top 0.12s linear;
 }
 
 /* YES */
@@ -55,17 +55,15 @@ button {
   background: #ff4d6d;
   color: white;
   left: 40px;
-  top: 30px;
-  z-index: 2;
+  top: 40px;
 }
 
 /* NO */
 #no {
-  background: #ddd;
+  background: #eee;
   color: black;
-  left: 180px;
-  top: 30px;
-  z-index: 1;
+  left: 200px;
+  top: 40px;
 }
 
 #gif {
@@ -91,7 +89,7 @@ button {
 <body>
 
 <div class="card">
-  <h1>Will you be my Valentine?</h1>
+  <h1>Will you be my Valentine? ❤️</h1>
   <div class="heart-icon">💖</div>
 
   <div class="buttons" id="buttons">
@@ -108,20 +106,37 @@ const yesBtn = document.getElementById("yes");
 const buttons = document.getElementById("buttons");
 const gif = document.getElementById("gif");
 
-/* SAFE MOVE — NEVER OVER YES */
 noBtn.addEventListener("click", () => {
-  let x, y;
+  const yesRect = yesBtn.getBoundingClientRect();
+  const containerRect = buttons.getBoundingClientRect();
+
+  let x, y, tries = 0;
 
   do {
-    x = Math.random() * 220;
-    y = Math.random() * 50;
-  } while (x > 20 && x < 130); // 🔒 YES SAFE ZONE
+    x = Math.random() * (containerRect.width - noBtn.offsetWidth);
+    y = Math.random() * (containerRect.height - noBtn.offsetHeight);
+
+    const noRect = {
+      left: containerRect.left + x,
+      right: containerRect.left + x + noBtn.offsetWidth,
+      top: containerRect.top + y,
+      bottom: containerRect.top + y + noBtn.offsetHeight
+    };
+
+    var overlap =
+      !(noRect.right < yesRect.left ||
+        noRect.left > yesRect.right ||
+        noRect.bottom < yesRect.top ||
+        noRect.top > yesRect.bottom);
+
+    tries++;
+  } while (overlap && tries < 50);
 
   noBtn.style.left = x + "px";
   noBtn.style.top = y + "px";
 });
 
-/* YES ACTION */
+/* YES */
 yesBtn.addEventListener("click", () => {
   buttons.style.display = "none";
   gif.style.display = "block";
