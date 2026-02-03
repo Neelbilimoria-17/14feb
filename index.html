@@ -13,35 +13,42 @@ body {
   justify-content: center;
   align-items: center;
   font-family: Arial, sans-serif;
-  overflow: hidden;
 }
 
-.container {
+.card {
+  background: white;
+  padding: 40px;
+  border-radius: 20px;
   text-align: center;
-  position: relative;
+  width: 340px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
 
 h1 {
-  color: white;
-  font-size: 2.5rem;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
+}
+
+.heart-icon {
+  font-size: 28px;
+  margin-bottom: 25px;
 }
 
 .buttons {
   position: relative;
-  width: 300px;
-  height: 120px;
-  margin: auto;
+  height: 90px;
 }
 
+/* COMMON BUTTON STYLE */
 button {
-  position: absolute;
-  padding: 12px 26px;
+  padding: 12px 28px;
   font-size: 18px;
   border-radius: 30px;
   border: none;
   cursor: pointer;
+  position: absolute;
   transition: left 0.12s linear, top 0.12s linear;
+  width: auto;          /* 🔥 IMPORTANT */
+  min-width: 90px;      /* 🔥 SAME SIZE */
 }
 
 /* YES */
@@ -49,15 +56,15 @@ button {
   background: #ff4d6d;
   color: white;
   left: 40px;
-  top: 40px;
+  top: 20px;
 }
 
-/* NO — NO TRANSFORM, NO SCALE */
+/* NO — SMALL & FIXED */
 #no {
-  background: white;
-  color: #ff4d6d;
+  background: #ddd;
+  color: black;
   left: 160px;
-  top: 40px;
+  top: 20px;
 }
 
 #gif {
@@ -70,7 +77,6 @@ button {
 .heart {
   position: fixed;
   font-size: 22px;
-  color: #ff4d6d;
   animation: floatUp 3s linear forwards;
 }
 
@@ -88,8 +94,10 @@ button {
 </head>
 
 <body>
-<div class="container">
-  <h1>Will you be my Valentine ❤️</h1>
+
+<div class="card">
+  <h1>Will you be my Valentine?</h1>
+  <div class="heart-icon">💖</div>
 
   <div class="buttons" id="buttons">
     <button id="yes">Yes</button>
@@ -105,19 +113,16 @@ const yesBtn = document.getElementById("yes");
 const buttons = document.getElementById("buttons");
 const gif = document.getElementById("gif");
 
-/* NO moves PARTIALLY — SAME SIZE ALWAYS */
+/* NO → MOVE ONLY, SAME SIZE */
 noBtn.addEventListener("click", () => {
-  const maxX = 220;
-  const maxY = 80;
-
-  const x = Math.random() * maxX;
-  const y = Math.random() * maxY;
+  const x = Math.random() * 180;
+  const y = Math.random() * 40;
 
   noBtn.style.left = x + "px";
   noBtn.style.top = y + "px";
 });
 
-/* YES */
+/* YES → SHOW GIF + HEARTS */
 yesBtn.addEventListener("click", () => {
   buttons.style.display = "none";
   gif.style.display = "block";
@@ -132,10 +137,10 @@ function hearts() {
     h.style.left = Math.random() * window.innerWidth + "px";
     h.style.top = window.innerHeight + "px";
     document.body.appendChild(h);
-
     setTimeout(() => h.remove(), 3000);
   }
 }
 </script>
+
 </body>
 </html>
