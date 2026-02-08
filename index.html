@@ -1,142 +1,106 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<title>Valentine</title>
+  <title>Valentine ❤️</title>
 
-<style>
-body {
-  margin: 0;
-  height: 100vh;
-  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: Arial, sans-serif;
-}
+  <style>
+    body {
+      background: #f7b0b0;
+      font-family: Arial;
+      text-align: center;
+      padding-top: 120px;
+    }
 
-.card {
-  background: white;
-  padding: 40px;
-  border-radius: 20px;
-  text-align: center;
-  width: 360px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-}
+    h1 {
+      color: white;
+      font-size: 42px;
+    }
 
-h1 {
-  margin-bottom: 15px;
-}
+    button {
+      padding: 12px 25px;
+      font-size: 18px;
+      margin: 10px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+    }
 
-.buttons {
-  position: relative;
-  height: 140px;
-}
+    #yes {
+      background: #ff4d6d;
+      color: white;
+    }
 
-/* COMMON BUTTON */
-button {
-  padding: 12px 28px;
-  font-size: 18px;
-  border-radius: 30px;
-  border: none;
-  cursor: pointer;
-  position: absolute;
-  min-width: 90px;
-  transition: left 0.15s ease, top 0.15s ease;
-}
+    #no {
+      background: white;
+      position: absolute;
+    }
 
-/* YES (LOCKED POSITION) */
-#yes {
-  background: #ff4d6d;
-  color: white;
-  left: 40px;
-  top: 50px;
-  z-index: 2;
-}
+    #gif {
+      display: none;
+      margin-top: 20px;
+      width: 200px;
+    }
 
-/* NO */
-#no {
-  background: #eee;
-  color: black;
-  left: 220px;
-  top: 50px;
-  z-index: 1;
-}
+    .heart {
+      position: fixed;
+      color: red;
+      font-size: 24px;
+      animation: float 3s linear infinite;
+    }
 
-#gif {
-  display: none;
-  margin-top: 20px;
-  width: 220px;
-}
-
-/* hearts */
-.heart {
-  position: fixed;
-  font-size: 22px;
-  animation: floatUp 3s linear forwards;
-}
-
-@keyframes floatUp {
-  from { transform: translateY(0); opacity: 1; }
-  to { transform: translateY(-300px); opacity: 0; }
-}
-</style>
+    @keyframes float {
+      0% {transform: translateY(0);}
+      100% {transform: translateY(-600px);}
+    }
+  </style>
 </head>
 
 <body>
 
-<div class="card">
-  <h1>Will you be my Valentine? ❤️</h1>
+<h1>Will you be my Valentine ❤️</h1>
 
-  <div class="buttons">
-    <button id="yes">Yes</button>
-    <button id="no">No</button>
-  </div>
+<button id="yes">Yes</button>
+<button id="no">No</button>
 
-  <img id="gif" src="oh-wow-you-dont-say.gif">
-</div>
+<br>
+<img id="gif" src="oh-wow-you-dont-say.gif">
 
 <script>
-const noBtn = document.getElementById("no");
-const yesBtn = document.getElementById("yes");
-const gif = document.getElementById("gif");
+  const noBtn = document.getElementById("no");
+  const yesBtn = document.getElementById("yes");
+  const gif = document.getElementById("gif");
 
-/* SAFE POSITIONS — NONE TOUCH YES */
-const safePositions = [
-  { x: 220, y: 10 },
-  { x: 220, y: 90 },
-  { x: 260, y: 50 },
-  { x: 180, y: 10 },
-  { x: 180, y: 90 }
-];
+  // NO button runs away
+  noBtn.onclick = function () {
+    const x = Math.random() * window.innerWidth * 0.7;
+    const y = Math.random() * window.innerHeight * 0.6;
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+  };
 
-let index = 0;
+  // YES button
+  yesBtn.onclick = function () {
 
-noBtn.addEventListener("click", () => {
-  index = (index + 1) % safePositions.length;
-  noBtn.style.left = safePositions[index].x + "px";
-  noBtn.style.top = safePositions[index].y + "px";
-});
+    gif.style.display = "block";
 
-/* YES */
-yesBtn.addEventListener("click", () => {
-  document.querySelector(".buttons").style.display = "none";
-  gif.style.display = "block";
-  hearts();
-});
+    // hearts animation
+    for (let i = 0; i < 20; i++) {
+      let heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerHTML = "❤️";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.top = "100vh";
+      document.body.appendChild(heart);
+    }
 
-function hearts() {
-  for (let i = 0; i < 20; i++) {
-    const h = document.createElement("div");
-    h.className = "heart";
-    h.innerHTML = "❤️";
-    h.style.left = Math.random() * window.innerWidth + "px";
-    h.style.top = window.innerHeight + "px";
-    document.body.appendChild(h);
-    setTimeout(() => h.remove(), 3000);
-  }
-}
+    // 🔥 OPEN DIGITS PAGE AFTER 3 SECONDS
+    setTimeout(function(){
+      window.location.href = "https://neelbilimoria-17.github.io/14feb/";
+    }, 3000);
+  };
 </script>
 
 </body>
 </html>
+
+
