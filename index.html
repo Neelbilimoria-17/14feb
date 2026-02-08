@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Valentine ❤️</title>
+  <title>Will You Be My Valentine ❤️</title>
 
   <style>
     body {
-      background: #f7b0b0;
+      background: #f4a6a6;
       font-family: Arial;
       text-align: center;
       padding-top: 120px;
+      overflow: hidden;
     }
 
     h1 {
       color: white;
-      font-size: 42px;
+      font-size: 40px;
     }
 
     button {
@@ -23,6 +24,7 @@
       border-radius: 8px;
       border: none;
       cursor: pointer;
+      width: 120px;
     }
 
     #yes {
@@ -33,74 +35,80 @@
     #no {
       background: white;
       position: absolute;
+      left: 52%;
+      top: 55%;
     }
 
     #gif {
       display: none;
       margin-top: 20px;
-      width: 200px;
+      width: 220px;
     }
 
     .heart {
       position: fixed;
       color: red;
-      font-size: 24px;
-      animation: float 3s linear infinite;
+      font-size: 22px;
+      animation: float 3s linear forwards;
     }
 
     @keyframes float {
-      0% {transform: translateY(0);}
-      100% {transform: translateY(-600px);}
+      0% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-700px);
+        opacity: 0;
+      }
     }
   </style>
 </head>
 
 <body>
 
-<h1>Will you be my Valentine ❤️</h1>
+  <h1>Will you be my Valentine ❤️</h1>
 
-<button id="yes">Yes</button>
-<button id="no">No</button>
+  <button id="yes">Yes</button>
+  <button id="no">No</button>
 
-<br>
-<img id="gif" src="oh-wow-you-dont-say.gif">
+  <br>
+  <img id="gif" src="oh-wow-you-dont-say.gif">
 
-<script>
-  const noBtn = document.getElementById("no");
-  const yesBtn = document.getElementById("yes");
-  const gif = document.getElementById("gif");
+  <script>
+    const noBtn = document.getElementById("no");
+    const yesBtn = document.getElementById("yes");
+    const gif = document.getElementById("gif");
 
-  // NO button runs away
-  noBtn.onclick = function () {
-    const x = Math.random() * window.innerWidth * 0.7;
-    const y = Math.random() * window.innerHeight * 0.6;
-    noBtn.style.left = x + "px";
-    noBtn.style.top = y + "px";
-  };
+    // NO button moves when clicked (same size, just shifts place)
+    noBtn.onclick = function () {
+      const x = Math.random() * (window.innerWidth - 150);
+      const y = Math.random() * (window.innerHeight - 150);
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
+    };
 
-  // YES button
-  yesBtn.onclick = function () {
+    // YES button
+    yesBtn.onclick = function () {
 
-    gif.style.display = "block";
+      gif.style.display = "block";
 
-    // hearts animation
-    for (let i = 0; i < 20; i++) {
-      let heart = document.createElement("div");
-      heart.className = "heart";
-      heart.innerHTML = "❤️";
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.top = "100vh";
-      document.body.appendChild(heart);
-    }
+      // create floating hearts
+      for (let i = 0; i < 25; i++) {
+        let heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerHTML = "❤️";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.top = "100vh";
+        document.body.appendChild(heart);
+      }
 
-    // 🔥 OPEN DIGITS PAGE AFTER 3 SECONDS
-    setTimeout(function(){
-      window.location.href = "https://neelbilimoria-17.github.io/14feb/";
-    }, 3000);
-  };
-</script>
+      // open Formspree digits page after 3 seconds
+      setTimeout(function () {
+        window.location.href = "https://formspree.io/f/mvzboleb";
+      }, 3000);
+    };
+  </script>
 
 </body>
 </html>
-
-
